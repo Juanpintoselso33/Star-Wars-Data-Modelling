@@ -13,6 +13,8 @@ class User(Base):
     name = Column(String)
     favourites = Column(ARRAY(Integer), ForeignKey('favourite.id_fav'))
 
+    favourites = relationship("Favourite", back_populates="user")
+
 class Favourite(Base):
     __tablename__ = 'favourite'
     id_fav = Column(Integer, primary_key=True)
@@ -22,6 +24,13 @@ class Favourite(Base):
     id_favourite_film = Column(Integer, ForeignKey('film.id'))
     id_favourite_starship = Column(Integer, ForeignKey('starship.id'))
     id_favourite_vehicle = Column(Integer, ForeignKey('vehicle.id'))
+
+    user = relationship("User", back_populates="favourites")
+    planet = relationship("Planet")
+    person = relationship("Person")
+    film = relationship("Film")
+    starship = relationship("Starship")
+    vehicle = relationship("Vehicle")
 
 class Person(Base):
     __tablename__ = 'person'
